@@ -7,8 +7,12 @@ class Vector3 {
         Vector3(double x_, double y_, double z_) : 
         x(x_), y(y_), z(z_) {}
 
-        Vector3 operator-(Vector3& other) const {
+        Vector3 operator-(Vector3& other) {
             return Vector3(x - other.x, y - other.y, z - other.z);
+        }
+
+        double dot(Vector3& other) {
+            return (x * other.x) + (y * other.y) + (z * other.z);
         }
 
     public: 

@@ -2,6 +2,7 @@
 #include <vector.hpp>
 #include <ray.hpp>
 #include <sphere.hpp>
+#include <quadratic.hpp>
 
 Sphere spheres[] = {
     Sphere(20.0, Point3(80, 50.4, 6)),
@@ -18,7 +19,12 @@ Sphere spheres[] = {
  * In case 3. pick the smaller of the two intersections
 */
 double findIntersection(Ray& ray, Sphere& sphere) {
-    // stub
+    // from https://gabrielgambetta.com/computer-graphics-from-scratch/02-basic-raytracing.html
+    double a, b, c;
+    double a = ray.direction.dot(ray.direction);
+    double b = 1;
+    double c = 1;
+    Quadratic sphereIntersections = Quadratic(a,b,c);
 }
 
 /**
