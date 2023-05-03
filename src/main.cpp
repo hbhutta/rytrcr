@@ -1,6 +1,25 @@
 #include <iostream>
 #include <vector.hpp>
 #include <ray.hpp>
+#include <sphere.hpp>
+
+Sphere spheres[] = {
+    Sphere(20.0, Point3(80, 50.4, 6)),
+    Sphere(12.0, Point3(80, 60.4, 6)),
+    Sphere(1.0, Point3(50, 50.4, 6)),
+    Sphere(10.0, Point3(80, 80.4, 6))
+};
+
+/**
+ * There are three possible cases:
+ * 1. No intesection, 
+ * 2. Single intersection (ray is tangent to sphere)
+ * 3. Two intersections (ray forms a chord through sphere)
+ * In case 3. pick the smaller of the two intersections
+*/
+double findIntersection(Ray& ray, Sphere& sphere) {
+    // stub
+}
 
 /**
  * Determine if the ray originating from the camera,
@@ -10,8 +29,10 @@
  * of the object at the intersection.
  * Otherwise, do nothing.
 */
-void raytrace(Ray& ray, Point3& pixel) {
-    
+Color raytrace(Ray& ray, Point3& pixel) {
+    for (Sphere sphere : spheres) {
+        findIntersection(ray, sphere);
+    }
 }
 
 /**
@@ -26,9 +47,14 @@ void createScene(int width, int height, double distanceFromCameraAlongZ, Point3&
             Vector3 pixel = Point3(x, y, distanceFromCameraAlongZ);
 
             Ray ray = createRay(cameraPosition, pixel);
-            raytrace(ray, pixel);
+            Color pixelColor = raytrace(ray, pixel);
+            double r = pixelColor.x;
+            double g = pixelColor.y;
+            double b = pixelColor.z;
 
-            std::cout << "pixel_color" << std::flush;
+            std::cout << r << std::endl;
+            std::cout << g << std::endl;
+            std::cout << b << std::endl;
         }
     }
 }
@@ -38,7 +64,9 @@ void createScene(int width, int height, double distanceFromCameraAlongZ, Point3&
  * 
 */
 Ray createRay(Point3& cameraPosition, Point3& pixelPosition) {
-
+    Vector3 direction = pixelPosition - cameraPosition;
+    Point3 origin = cameraPosition;
+    return Ray(direction, origin);
 }
 
 int main() {
